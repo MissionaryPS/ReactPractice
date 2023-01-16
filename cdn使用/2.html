@@ -3,14 +3,74 @@
     <head>
         <meta charset="UTF-8" />
         <title>React</title>
-        <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
     </head>
 
     <body>
-        <h1>React</h1>
-        <div id="root">wait...</div>
+        <h1 class="bg-primary text-white display-4">React</h1>
+        <div class="container mt-3">
+            <div id="root">wait...</div>
+        </div>
+
+        <div class="container mt-3">
+            <div class="bg-primary text-white">primary</div>
+            <div class="bg-secondary text-white">secondary</div>
+            <div class="bg-success text-dark">success</div>
+            <div class="bg-warning text-dark">warning</div>
+        </div>
+
+        <div class="container mt-3">
+            <div class="m-4 bg-warning">margin 4</div>
+            <div class="p-4 bg-warning">padding 4</div>
+        </div>
+
+        <div class="container mt-3">
+            <form>
+                <div class="form-group">
+                    <label for="id">account</label>
+                    <input type="email" class="form-control" id="id">
+                </div>
+                <div class="form-goroup">
+                    <label for="pass">password</label>
+                    <input type="password" class="form-control" id="pass">
+                </div>
+            </form>
+        </div>
+
+        <div class="container mt-3">
+            <form>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="check">
+                    <label class="form-check-label" for="check">チェックボックス</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="rb1" name="rb">
+                    <label class="form-check-label" for="rb1">ラジオボタン1</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="rb2" name="rb">
+                    <label class="form-check-label" for="rb2">ラジオボタン2</label>
+                </div>
+            </form>
+        </div>
+
+        <div class="container mt-3">
+            <table class="table">
+                <thead>
+                    <tr><th>ID</th><th>name</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>YAMADA-Taro</td></tr>
+                    <tr><td>2</td><td>TANAKA-Hanako</td></tr>
+                    <tr><td>3</td><td>SUZUKI-Sachiko</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
         <script src="./script2.js"></script>
     </body>
 </html>
