@@ -1,17 +1,31 @@
 import React, {Component} from 'react'
 import './App.css';
-import Rect from './Rect'
 
 class App extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      msg:'Hello Component.',
+      count:0
+    }
+    //let timerを消しても動く．
+    //setIntervalの引数は(関数，ミリ秒)だが，関数の宣言にアロー関数を用いている
+    let timer = setInterval(()=>{
+      this.setState({
+        count:this.state.count + 1,
+        msg:"[count:" + this.state.count + "]"
+      })
+    }, 1000)
+  }
 
   render(){ 
     return <div>
       <h1 className='bg-primary text-white display-4'>React</h1>
       <div className='container'>
-        <p className='subtitle'>draw rectangle.</p>
-        <Rect x="200" y="200" w="200" h="200" c="#6ff9" r="25" />
-        <Rect x="300" y="300" w="200" h="200" c="#f6f9" r="75" />
-        <Rect x="400" y="400" w="200" h="200" c="#6669" r="100" />
+        <p className='subtitle'>Count number.</p>
+        <p className='alert alert-warning'>{this.state.msg}</p>
+        <p className='alert alert-dark'>{this.props.msg}</p>
       </div>
     </div>
   }
