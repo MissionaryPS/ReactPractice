@@ -1,52 +1,87 @@
 import React, {Component} from 'react'
 import './App.css';
 
+const theme = {
+  light:{
+    style:{
+      backgroundColor:"#f0f9ff",
+      color:"#00f"
+    },
+    head:"bg-primary text-white display-4 mb-4",
+    alert:"alert alert-primary my-3",
+    text:"text-primary m-3",
+    foot:"py-4"
+  },
+  dark:{
+    style:{
+      backgroundColor:"#336",
+      color:"#eef"
+    },
+    head:"bg-secondary text-white display-4 mb-4",
+    alert:"alert alert-dark my-3",
+    text:"text-light m-3",
+    foot:"py-4"
+  }
+}
+
+const ThemeContext = React.createContext(theme.light)
+
 class App extends Component {
-  
+  static contextType = ThemeContext
+
   constructor(props){
     super(props)
+    this.state = {
+      theme:theme.light
+    }
+
+    this.toggleTheme = () =>{
+      this.setState(state =>({
+        theme:
+          state.theme===theme.dark
+          ?theme.light
+          :theme.dark
+      }))
+    }
   }
 
 
   render(){ 
-    return <div>
-      <h1 className='bg-primary text-white display-4'>React</h1>
+    return <div style = {this.context.style}>
+      <h1 className={this.context.head}>React</h1>
       <div className='container'>
-        <Message title="Children.">
-          これはコンポーネント内のコンテンツです．
-          句点でテキストを分割しリストにして表示します．
-          改行は必要ありません．
-        </Message>
+        <ThemeContext.Provider value={this.state.theme}>
+        <Title value='Content page'/>
+        <Message value='This is Content sample.'/>
+          <Message value='これはテーマのサンプルです．'/>
+        </ThemeContext.Provider>
+        <button onClick={this.toggleTheme}>change theme</button>
+        <div className={this.context.foot}></div>
       </div>
     </div>
   }
 }
 
-class Message extends Component{
-  li = {
-    fontSize:"14pt",
-    fontWeight:"bold",
-    color:"#090"
-  }
+
+class Title extends Component{
+  static contextType = ThemeContext
 
   render(){
-    let content = this.props.children
-    let arr = content.split('．')
-    let arr2 = []
-    for(let i = 0; i< arr.length; i++){
-      if(arr[i].trim() !== ''){
-        arr2.push(arr[i])
-      }
-    }
-    let list = arr2.map((value,key)=>(
-      <li className='list-group-item' style={this.li} key={key}>{key+1}.{value}.</li>
-    ))
-    return <div>
-      <h2>{this.props.title}</h2>
-      <ol className='list-group'>{list}</ol>
+    return <div className={this.context.alert}>
+      <h2>{this.props.value}</h2>
     </div>
   }
+}
 
+
+class Message extends Component{
+  static contextType = ThemeContext
+
+  render(){
+    return <div style={this.context.style}>
+      <p className={this.context.text}>{this.props.value}</p>
+    </div>
+  }
 }
 
 export default App;
