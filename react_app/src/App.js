@@ -1,70 +1,49 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './App.css';
 
 function AlertMessage(props){
 
-  const data = props.data
-  const msg = JSON.stringify(data)
-
-
   return <div className='alert alert-primary h5 text-primary'>
-    <h5>{msg}</h5>
-    <hr />
-    <table className='table h6'>
-      <tbody>
-        <tr><th>Name</th><td>{data.name}</td></tr>
-        <tr><th>Mail</th><td>{data.mail}</td></tr>
-        <tr><th>Age</th><td>{data.age}</td></tr>
-      </tbody>
-    </table>
+    <h5>{props.msg}</h5>
   </div>
 }
 
 function App() {
 
-  const [name, setName] = useState("")
-  const [mail, setMail] = useState("")
-  const [age, setAge] = useState(0)
-  const [form, setForm] = useState({
-    name:'no name', mail:'no mail', age:0
-  })
+  const [val, setVal] = useState(0)
+  const [tax1, setTax1] = useState(0)
+  const [tax2, setTax2] = useState(0)
+  const [msg, setMsg] = useState('set a number...')
 
-  const doChangeName = (e) =>{
-    setName(e.target.value)
-  }
-  const doChangeMail = (e) =>{
-    setMail(e.target.value)
-  }
-  const doChangeAge = (e) =>{
-    setAge(e.target.value)
+  const doChange = (e) =>{
+    setVal(e.target.value)
   }
 
-  const doSubmit = (e) =>{
-    setForm({name:name, mail:mail, age:age})
-    e.preventDefault()
-  }
+  useEffect(() =>{
+    let res = <div>
+      <p>軽減税率(8%)：{tax1}円</p>
+      <p>通常税率(10%)：{tax2}円</p>
+    </div>
+    setMsg(res)
+  },[tax1,tax2])
 
+  useEffect(()=>{
+    setTax1(Math.floor(val*1.08))
+  },[val])
+
+  useEffect(()=>{
+    setTax2(Math.floor(val*1.1))
+  },[val])
 
   return <div>
     <h1 className='bg-primary text-white display-4'>React</h1>
     <div className='container'>
       <h4 className='my-3'>Hooks sample</h4>
-      <AlertMessage data={form} setData={setForm}/>
-      <form onSubmit={doSubmit}>
-        <div className='form-group'>
-          <label>Name:</label>
-          <input type='text' className='form-control' onChange={doChangeName} />
-        </div>
-        <div className='form-group'>
-          <label>Mail:</label>
-          <input type='text' className='form-control' onChange={doChangeMail} />
-        </div>
-        <div className='form-group'>
-          <label>Age:</label>
-          <input type='number' className='form-control' onChange={doChangeAge} />
-        </div>
-        <input type='submit' className='btn btn-primary' value='Click'/>
-      </form>
+      <AlertMessage msg={msg}/>
+      <div className='form-group'>
+        <label>Input:</label>
+        <input type='number' className='form-control' onChange={doChange} />
+      </div>
     </div>
   </div>
 }
